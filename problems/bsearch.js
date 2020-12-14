@@ -17,11 +17,11 @@ const recurBSearch = (nums, targetNum) => {
     // Base Case: if nums has no length, return false because we've run out of
     // items to search and haven't found targetNum
     if (nums.length === 0) return false
-    // if (nums[0] === targetNum) return true
+        // if (nums[0] === targetNum) return true
 
     // determine the slice point (ie the 'middle' of the array).
     let middleNum = Math.floor((nums.length - 1) / 2)
-    // create "left half" and "right half" arrays, not including the slice point.
+        // create "left half" and "right half" arrays, not including the slice point.
 
     // if targetNum is less than the value in the array at slice point,
     // return this search on the left half
@@ -39,7 +39,7 @@ const recurBSearch = (nums, targetNum) => {
     else return true
 }
 
-console.log(recurBSearch([1, 2, 3, 4, 5, 6, 7, 8, 9, 10], 0))
+// console.log(recurBSearch([1, 2, 3, 4, 5, 6, 7, 8, 9, 10], 0))  return false 
 
 /*******************************************************************
 BINARY SEARCH VERSION 2:
@@ -50,28 +50,43 @@ targetNum is within the nums array.
 
 const iterBSearch = (nums, targetNum) => {
     // Save references to indices at the beginning, middle, and end of the array
-    // into variables: lowerIdx, midIdx, and upperIdx
-
-    // while the lowerIdx is less than or equal to the upperIdx, there are still
-    // values to be searched
-
-    // reassign the midIdx to the the middle of the new lower and upper indices
-    // Hint: This is the difference between lower and upper, divided by 2
-
-    // if targetNum is larger than the value in the middle, we know targetNum is
-    // not between the current lower and current middle, so reassign the lowerIdx
-    // to the middle (ie cut off the left half of the array)
-
-    // if targetNum is less than the value in the middle, we know targetNum is not
-    // between the current upper and current middle, so reassign the upperIdx
-    // to the middle (ie cut off the right half of the array)
-
-    // if it's not greater than or less than (ie 'else'), we have found our target
-    // at the midIdx and can return true and stop iterating.
-
-    // if we finish our while loop and haven't returned true, we've looked over
-    // the entire array and didn't find targetNum, so return false
+    let upperIdx = nums.length - 1
+    let middleIdx;
+    let lowerIdx = 0
+        // into variables: lowerIdx, midIdx, and upperIdx
+        // while the lowerIdx is less than or equal to the upperIdx, there are still
+        // values to be searched
+    while (lowerIdx <= upperIdx) {
+        middleIdx = Math.floor((upperIdx - lowerIdx) / 2) + lowerIdx;
+        console.log('mid : ', middleIdx)
+        if (targetNum > nums[middleIdx]) {
+            lowerIdx = middleIdx + 1;
+        } else if (targetNum < nums[middleIdx]) {
+            upperIdx = middleIdx - 1;
+        } else {
+            return true;
+        }
+    }
+    return false;
 }
+console.log(iterBSearch([1, 2, 3, 4, 5, 6, 7, 8, 9, 10], 4));
+
+// reassign the midIdx to the the middle of the new lower and upper indices
+// Hint: This is the difference between lower and upper, divided by 2
+
+// if targetNum is larger than the value in the middle, we know targetNum is
+// not between the current lower and current middle, so reassign the lowerIdx
+// to the middle (ie cut off the left half of the array)
+
+// if targetNum is less than the value in the middle, we know targetNum is not
+// between the current upper and current middle, so reassign the upperIdx
+// to the middle (ie cut off the right half of the array)
+
+// if it's not greater than or less than (ie 'else'), we have found our target
+// at the midIdx and can return true and stop iterating.
+
+// if we finish our while loop and haven't returned true, we've looked over
+// the entire array and didn't find targetNum, so return false
 
 
 /*******************************************************************
