@@ -5,8 +5,7 @@ visualize these things in action, so use the below arrays as example inputs.
 [1, 2, 3, 4, 5, 6, 7, 8, 9]
 [1, 2, 3, 4, 5, 6, 7, 8, 9, 10]
 *******************************************************************/
-
-//
+//changed here
 /*******************************************************************
 BINARY SEARCH VERSION 1:
 
