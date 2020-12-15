@@ -190,7 +190,7 @@ const recurBSearchIdxV2 = (nums, targetNum, low = null, high = null) => {
 
 }
 
-console.log(recurBSearchIdxV2([1, 2, 3, 4, 5, 6, 7, 8, 9, 10], 8))
+
 
 /*******************************************************************
 BINARY SEARCH VERSION 5:
@@ -200,9 +200,26 @@ it is in the nums array, and -1 if it is not found.
 *******************************************************************/
 
 const iterBSearchIdx = (nums, targetNum) => {
-    // this is identical to Version 2, but return the index or -1 rather than
-    // true or false
+    let lowerIdx = 0
+    let upperIdx = nums.length - 1
+    let middleIdx
+
+    while (lowerIdx <= upperIdx) {
+        middleIdx = Math.floor((lowerIdx + upperIdx) / 2)
+
+        if (targetNum > nums[middleIdx]) {
+            lowerIdx = middleIdx + 1
+        } else if (targetNum < nums[middleIdx]) {
+            upperIdx = middleIdx - 1
+        } else {
+            return middleIdx
+        }
+    }
+    return -1
+
 }
+
+console.log(iterBSearchIdx([1, 2, 3, 4, 5, 6, 7, 8, 9, 10], 8))
 
 module.exports = {
     recurBSearch,
