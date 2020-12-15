@@ -17,11 +17,11 @@ const recurBSearch = (nums, targetNum) => {
     // Base Case: if nums has no length, return false because we've run out of
     // items to search and haven't found targetNum
     if (nums.length === 0) return false
-        // if (nums[0] === targetNum) return true
+    // if (nums[0] === targetNum) return true
 
     // determine the slice point (ie the 'middle' of the array).
     let middleNum = Math.floor((nums.length - 1) / 2)
-        // create "left half" and "right half" arrays, not including the slice point.
+    // create "left half" and "right half" arrays, not including the slice point.
 
     // if targetNum is less than the value in the array at slice point,
     // return this search on the left half
@@ -39,8 +39,6 @@ const recurBSearch = (nums, targetNum) => {
     else return true
 }
 
-// console.log(recurBSearch([1, 2, 3, 4, 5, 6, 7, 8, 9, 10], 0))  return false 
-
 /*******************************************************************
 BINARY SEARCH VERSION 2:
 
@@ -53,12 +51,11 @@ const iterBSearch = (nums, targetNum) => {
     let upperIdx = nums.length - 1
     let middleIdx;
     let lowerIdx = 0
-        // into variables: lowerIdx, midIdx, and upperIdx
-        // while the lowerIdx is less than or equal to the upperIdx, there are still
-        // values to be searched
+    // into variables: lowerIdx, midIdx, and upperIdx
+    // while the lowerIdx is less than or equal to the upperIdx, there are still
+    // values to be searched
     while (lowerIdx <= upperIdx) {
         middleIdx = Math.floor((upperIdx - lowerIdx) / 2) + lowerIdx;
-        console.log('mid : ', middleIdx)
         if (targetNum > nums[middleIdx]) {
             lowerIdx = middleIdx + 1;
         } else if (targetNum < nums[middleIdx]) {
@@ -69,7 +66,7 @@ const iterBSearch = (nums, targetNum) => {
     }
     return false;
 }
-console.log(iterBSearch([1, 2, 3, 4, 5, 6, 7, 8, 9, 10], 4));
+
 
 // reassign the midIdx to the the middle of the new lower and upper indices
 // Hint: This is the difference between lower and upper, divided by 2
@@ -106,7 +103,37 @@ const recurBSearchIdx = (nums, targetNum) => {
     // on the 'right half' recursion. in that, try saving the return value of the
     // recursive call into a variable, and adding it to the current stack-frame's
     // midIdx + 1.
+
+    // Base Case: if nums has no length, return false because we've run out of
+    // items to search and haven't found targetNum
+    if (nums.length === 0) return -1
+    // if (nums[0] === targetNum) return true
+
+    // determine the slice point (ie the 'middle' of the array).
+    let middleNum = Math.floor((nums.length) / 2)
+    // create "left half" and "right half" arrays, not including the slice point.
+
+    // if targetNum is less than the value in the array at slice point,
+    // return this search on the left half
+    if (targetNum < nums[middleNum]) {
+        let previousMiddleIdx = recurBSearchIdx(nums.slice(0, middleNum), targetNum)
+        if (previousMiddleIdx === -1) return -1
+        return previousMiddleIdx
+    }
+    // if targetNum is greater than the value in the array at slice point,
+    //return this search on the right half
+    if (targetNum > nums[middleNum]) {
+        let previousMiddleIdx = recurBSearchIdx(nums.slice(middleNum + 1), targetNum)
+        if (previousMiddleIdx === -1) return -1
+        return previousMiddleIdx + middleNum + 1
+    }
+
+    // if it's not greater than or less than (i.e. 'else'),
+    // we know it's equal so return true
+    else return middleNum
 }
+
+console.log(recurBSearchIdx([1, 2, 3, 4, 5, 6, 7, 8, 9, 10], 8))
 
 
 /*******************************************************************
