@@ -133,7 +133,7 @@ const recurBSearchIdx = (nums, targetNum) => {
     else return middleNum
 }
 
-console.log(recurBSearchIdx([1, 2, 3, 4, 5, 6, 7, 8, 9, 10], 8))
+
 
 
 /*******************************************************************
@@ -143,7 +143,7 @@ Write a Recursive Binary Search that returns the Index value of targetNum if it
 is in the nums array, and -1 if it is not found.
 *******************************************************************/
 
-const recurBSearchIdxV2 = (nums, targetNum, low = null, hi = null) => {
+const recurBSearchIdxV2 = (nums, targetNum, low = null, high = null) => {
     /*
     This implementation is recursive, but borrows the low/hi logic from Version 2
     to establish a different base case. Rather than shrinking the array until its
@@ -154,22 +154,43 @@ const recurBSearchIdxV2 = (nums, targetNum, low = null, hi = null) => {
     Base Case:
     if low is equal to high and we haven't found targetNum, then return -1 to
     indicate that the value was not found.
-
-    Determine the slice point (the difference between low and hi, divided by 2)
-
-    If targetNum is less than nums[slicepoint], then
-    return the binary search of nums where low is the beginning of the array, and
-    hi is the middle of the array
-
-    If targetNum is less than nums[slicepoint], then
-    return the binary search of nums where low is the middle of the array, and hi
-    is the end of the array
-
-    If it's not greater and not less (i.e. 'else'), return the slice point because
-    we have found our value!
     */
+    if (low === high && high !== null) {
+        if (nums[low] === targetNum) return low
+        else return -1
+    }
+
+    // Determine the slice point (the difference between low and hi, divided by 2)
+    if (low === null || high === null) {
+        low = 0
+        high = nums.length - 1
+    }
+    let middleIdx = Math.floor((low + high) / 2)
+
+    // If targetNum is less than nums[slicepoint], then
+    // return the binary search of nums where low is the beginning of the array, and
+    // hi is the middle of the array
+    if (targetNum < nums[middleIdx]) {
+        high = middleIdx - 1
+        return recurBSearchIdxV2(nums, targetNum, low, high)
+    }
+
+    // If targetNum is less than nums[slicepoint], then
+    // return the binary search of nums where low is the middle of the array, and hi
+    // is the end of the array
+    if (targetNum > nums[middleIdx]) {
+        low = middleIdx + 1
+        return recurBSearchIdxV2(nums, targetNum, low, high)
+    }
+
+    return middleIdx
+
+    // If it's not greater and not less (i.e. 'else'), return the slice point because
+    // we have found our value!
+
 }
 
+console.log(recurBSearchIdxV2([1, 2, 3, 4, 5, 6, 7, 8, 9, 10], 8))
 
 /*******************************************************************
 BINARY SEARCH VERSION 5:
